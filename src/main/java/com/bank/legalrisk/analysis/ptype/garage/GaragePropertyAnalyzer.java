@@ -28,12 +28,22 @@ public class GaragePropertyAnalyzer implements PropertyTypeAnalyzer {
     @Override
     public PropertySpecificRisks analyzePropertySpecificRisks(EGRNData egrnData, CommonRiskData commonRisks) {
         GarageSpecificRisks risks = new GarageSpecificRisks();
-        String region = "77"; // stub region code
+        String region = resolveRegion(egrnData);
         risks.landRightRisks.addAll(landRightsAnalyzer.analyze(egrnData, region));
         risks.gskMembershipRisks.addAll(gskAnalyzer.analyze(egrnData, region));
         risks.specificRiskScore = calculatePropertyTypeScoring(risks);
         risks.getClauses().addAll(generatePropertyTypeContractClauses(risks));
         return risks;
+    }
+
+    private String resolveRegion(EGRNData egrnData) {
+        if (egrnData != null && egrnData.cadastralNumber() != null) {
+            String[] parts = egrnData.cadastralNumber().split(":");
+            if (parts.length > 0 && !parts[0].isBlank()) {
+                return parts[0];
+            }
+        }
+        return "";
     }
 
     @Override
