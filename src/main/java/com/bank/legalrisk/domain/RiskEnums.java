@@ -1,0 +1,18 @@
+package com.bank.legalrisk.domain;
+
+/**
+ * Generic risk level used across analyzers.
+ */
+public enum RiskLevel {
+    LOW, MEDIUM, HIGH, CRITICAL
+}
+
+/**
+ * Generic risk type used by scoring weighting maps.
+ */
+public enum RiskType {
+    OWNERSHIP, REGISTRATION, CREDIT, COURT,
+    LAND_RIGHT, GSK, UNAUTHORIZED_CONSTRUCTION, ACCESS_RIGHTS,
+    FAMILY, PRIVATIZATION, RENOVATION, UTILITY_DEBT, MINOR_OWNERSHIP,
+    RENTAL, ZONING, LICENSE, TAX_DISPUTE, ENVIRONMENTAL
+}
