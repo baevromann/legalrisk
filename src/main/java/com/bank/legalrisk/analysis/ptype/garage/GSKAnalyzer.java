@@ -37,10 +37,10 @@ public class GSKAnalyzer {
                         "Высокая доля должников в ГСК: " + share + "%", RiskLevel.HIGH, OffsetDateTime.now()));
             }
         }
-        int ml = ml.predictGskInstabilityScore(egrn.gskStatus(), egrn.gskMembers(), egrn.gskDebtors(), regionCode);
-        if (ml >= 60) {
+        int mlScore = ml.predictGskInstabilityScore(egrn.gskStatus(), egrn.gskMembers(), egrn.gskDebtors(), regionCode);
+        if (mlScore >= 60) {
             res.add(new RiskItem(RiskType.GSK, "GSK-ML-HIGH",
-                    "ML прогноз нестабильности ГСК: " + ml, RiskLevel.MEDIUM, OffsetDateTime.now()));
+                    "ML прогноз нестабильности ГСК: " + mlScore, RiskLevel.MEDIUM, OffsetDateTime.now()));
         }
         return res;
     }
