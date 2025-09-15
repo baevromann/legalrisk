@@ -4,6 +4,8 @@ import com.bank.legalrisk.analysis.ptype.commercial.CommercialPropertyAnalyzer;
 import com.bank.legalrisk.analysis.ptype.garage.*;
 import com.bank.legalrisk.analysis.ptype.residential.ResidentialPropertyAnalyzer;
 import com.bank.legalrisk.domain.PropertyType;
+import com.bank.legalrisk.ml.GSKRiskMLClientStub;
+import com.bank.legalrisk.ml.LandAnalysisMLClientStub;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -45,8 +47,8 @@ public class PropertyTypeAnalysisFactory {
      */
     public PropertyTypeAnalyzer createAnalyzer(PropertyType type) {
         return switch (type) {
-            case GARAGE -> garageAnalyzer(new LandRightsAnalyzer(new com.bank.legalrisk.ml.LandAnalysisMLClientStub()),
-                    new GSKAnalyzer(new com.bank.legalrisk.ml.GSKRiskMLClientStub()),
+            case GARAGE -> garageAnalyzer(new LandRightsAnalyzer(new LandAnalysisMLClientStub()),
+                    new GSKAnalyzer(new GSKRiskMLClientStub()),
                     garageScoringAnalyzer(), garageContractPointsService());
             case COMMERCIAL_PROPERTY -> commercialAnalyzer();
             default -> residentialAnalyzer();
